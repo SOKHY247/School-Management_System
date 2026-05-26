@@ -53,7 +53,7 @@ class SubjectController extends Controller
         ]);
     
         $subject = Subject::create($validated);
-        // $teacher->subjects()->attach($subject->id);
+        
 
         return response()->json([
             'message' => 'Subject created successfully',

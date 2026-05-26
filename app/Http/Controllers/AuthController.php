@@ -72,7 +72,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid email or password!'], 401);
         }
 
-        // Delete old tokens before creating new one (prevent token buildup)
+        
         $user->tokens()->delete();
 
         $access_token = $user->createToken('auth_token')->plainTextToken;
@@ -87,15 +87,11 @@ class AuthController extends Controller
 
    public function logout(Request $request)
 {
-    $user = $request->user();
-
-    if (!$user) {
-        return response()->json(['message' => 'Unauthenticated'], 401);
-    }
-    // Delete only the current token (safer than deleting all)
     $request->user()->currentAccessToken()->delete();
 
-    return response()->json(['message' => 'User logged out successfully'], 200);
+    return response()->json([
+        'message' => 'User logged out successfully'
+        ], 200);
 }
 
     public function show(string $id)
